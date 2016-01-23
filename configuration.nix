@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./nixos-in-place.nix
+      ./services.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -35,6 +36,7 @@
     wget
     vim
     git
+    tmux
   ];
 
   # List services that you want to enable:
