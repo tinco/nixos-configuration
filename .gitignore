@@ -1,1 +1,4 @@
 result
+nixos-in-place.nix
+backup*
+hardware-configuration.nix
