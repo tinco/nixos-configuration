@@ -12,11 +12,13 @@
    };
  };
  systemd.services.tincoNl = {
+   wantedBy = [ "local.target" ];
    requires = [ "docker.service" ];
    after = [ "docker.service" ];
    serviceConfig = {
-     ExecStart = ''${pkgs.docker}/bin/docker pull tinco/tinco.nl:latest && ${pkgs.docker}/bin/docker start -a tinco/tinco.nl'';
-     ExecStop = ''${pkgs.docker}/bin/docker stop -t 2 tinco/tinco.nl'';
+     User = "tinco";
+     ExecStart = ''${pkgs.bashInteractive}/bin/bash -c "${pkgs.docker}/bin/docker pull tinco/tinco.nl:latest && ${pkgs.docker}/bin/docker run --rm --name tinco.nl -p 80:80 tinco/tinco.nl"'';
+     ExecStop = ''${pkgs.docker}/bin/docker stop -t 2 tinco.nl'';
    };
  };
 }
