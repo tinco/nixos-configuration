@@ -29,4 +29,13 @@
      ExecStop = ''${pkgs.docker}/bin/docker stop -t 2 tinco.nl && ${pkgs.docker}/bin/docker rm tinco.nl'';
    };
  };
+ systemd.services.blogTincoNl = {
+   wantedBy = [ "local.target" ];
+   requires = [ "docker.service" ];
+   after = [ "docker.service" ];
+   serviceConfig = {
+     ExecStart = ''${pkgs.bashInteractive}/bin/bash -c "${pkgs.docker}/bin/docker pull tinco/blog.tinco.nl:latest && ${pkgs.docker}/bin/docker run --rm --name blog.tinco.nl -e VIRTUAL_HOST=blog.tinco.nl tinco/blog.tinco.nl"'';
+     ExecStop = ''${pkgs.docker}/bin/docker stop -t 2 blog.tinco.nl && ${pkgs.docker}/bin/docker rm blog.tinco.nl'';
+   };
+  };
 }
