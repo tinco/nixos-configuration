@@ -1,5 +1,15 @@
 {pkgs, ...}:
 
+let mkDockerService = {container, name, env}: {
+  wantedBy = [ "local.target" ];
+  requires = [ "docker.service" ];
+  after = [ "docker.service" ];
+  serviceConfig = {
+    ExecStart = ''${pkgs.bashInteractive}/bin/bash -c "${pkgs.docker}/bin/docker rm ${name} ; ${pkgs.docker}/bin/docker pull ${container} && ${pkgs.docker}/bin/docker run --rm --name ${name} ${env} ${container}"'';
+    ExecStop = ''${pkgs.docker}/bin/docker stop -t 2 ${name} && ${pkgs.docker}/bin/docker rm ${name}'';
+  };
+};
+in
 {
  systemd.services.ircSession = {
    wantedBy = [ "multi-user.target" ];
@@ -11,31 +21,22 @@
      ExecStop = ''${pkgs.tmux}/bin/tmux kill-session -t irc'';
    };
  };
- systemd.services.httpReverseProxy = {
-   wantedBy = [ "local.target" ];
-   requires = [ "docker.service" ];
-   after = [ "docker.service" ];
-   serviceConfig = {
-     ExecStart = ''${pkgs.bashInteractive}/bin/bash -c "${pkgs.docker}/bin/docker pull jwilder/nginx-proxy:latest && ${pkgs.docker}/bin/docker run --rm --name http_reverse_proxy -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy"'';
-     ExecStop = ''${pkgs.docker}/bin/docker stop -t 2 http_reverse_proxy && ${pkgs.docker}/bin/docker rm http_reverse_proxy'';
-   };
+
+ systemd.services.httpReverseProxy = mkDockerService { 
+   container = "jwilder/nginx-proxy:latest" ;
+   name = "http_reverse_proxy" ;
+   env = "-p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro";
  };
- systemd.services.tincoNl = {
-   wantedBy = [ "local.target" ];
-   requires = [ "docker.service" ];
-   after = [ "docker.service" ];
-   serviceConfig = {
-     ExecStart = ''${pkgs.bashInteractive}/bin/bash -c "${pkgs.docker}/bin/docker pull tinco/tinco.nl:latest && ${pkgs.docker}/bin/docker run --rm --name tinco.nl -e VIRTUAL_HOST=tinco.nl,www.tinco.nl tinco/tinco.nl"'';
-     ExecStop = ''${pkgs.docker}/bin/docker stop -t 2 tinco.nl && ${pkgs.docker}/bin/docker rm tinco.nl'';
-   };
+
+ systemd.services.tincoNl = mkDockerService {
+   container = "tinco/tinco.nl:latest" ;
+   name = "tinco.nl" ;
+   env = "-e VIRTUAL_HOST=www.tinco.nl,tinco.nl";
  };
- systemd.services.blogTincoNl = {
-   wantedBy = [ "local.target" ];
-   requires = [ "docker.service" ];
-   after = [ "docker.service" ];
-   serviceConfig = {
-     ExecStart = ''${pkgs.bashInteractive}/bin/bash -c "${pkgs.docker}/bin/docker pull tinco/blog.tinco.nl:latest && ${pkgs.docker}/bin/docker run --rm --name blog.tinco.nl -e VIRTUAL_HOST=blog.tinco.nl tinco/blog.tinco.nl"'';
-     ExecStop = ''${pkgs.docker}/bin/docker stop -t 2 blog.tinco.nl && ${pkgs.docker}/bin/docker rm blog.tinco.nl'';
-   };
-  };
+
+ systemd.services.blogTincoNl = mkDockerService {
+   container = "tinco/blog.tinco.nl:latest" ;
+   name = "blog.tinco.nl" ;
+   env = "-e VIRTUAL_HOST=blog.tinco.nl";
+ };
 }
