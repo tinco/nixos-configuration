@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./nixos-in-place.nix
       ./services.nix
+      ./packages.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -53,7 +54,7 @@
   users.extraUsers.tinco = {
     isNormalUser = true;
     uid = 1000;
-    hashedPassword = "***REMOVED***";
+    hashedPassword = "$6$qWCDyPsN$nQQH/u1pH0DtREjR5n6nLt/XrKaZ1njEgYvrHSxVi0wvW/Zl8U0rb4Nj69dUzsMqS4F4PHxVQ2oD.vjwFqRz1/";
     extraGroups = [ "wheel" "networkmanager" "docker" ];
     openssh.authorizedKeys.keys = [ 
 	    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDR/fv06LyJW7LMMbSRnP4O9IeP1a+YwnIn9Ja4vJb198udaeosJQB0L2zRjXnFa+z9exmnB9fXvPRVCosMzVzlv6IK647trQo7Wbmh5H6dJUtRDqyPm50yApfs8HUMmpAUT2OjcSJ5N3gV2qXOyj7ccwk5rViDB3o/wfFv3/WCro1t3cL5/0BmvC1DF+WwFdSAoXTIA0j5uOjlc4pneICe8OPfb3GHViKMZBgwbe1lC9L0jJAsYL6vTGeD6jLJJubspRvIe9iSp/2ug7htFTWiJhP7rhtDo33CUcMJHHT0dYBnElqR3Onv4kvSJiQcbR+8hIrJeFSQMqfhjGfC1kNd tinco@phdevbak-1"
