@@ -83,6 +83,7 @@
     tmux
     chromium
     firefox
+    spotify
   ];
 
   # List services that you want to enable:
