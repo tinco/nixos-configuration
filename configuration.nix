@@ -13,10 +13,12 @@
     ];
 
   # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/sde";
+  boot.loader.grub = {
+    enable = true;
+    version = 2;
+    device = "/dev/sde";
+    gfxmodeBios = "1920x1200,auto";
+  };
   boot.loader.grub.extraConfig = ''
 
 	if [ x"''${feature_menuentry_id}" = xy ]; then
@@ -71,6 +73,7 @@
   environment.systemPackages = with pkgs; [
     wget
     vim
+    neovim
     git
     tmux
     firefox
