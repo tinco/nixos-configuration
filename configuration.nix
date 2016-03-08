@@ -5,6 +5,11 @@
 { config, pkgs, ... }:
 
 {
+  nixpkgs.config = {
+    allowUnfree = true;
+    chromium.enableWideVine = true;
+  };
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -76,6 +81,7 @@
     neovim
     git
     tmux
+    chromium
     firefox
   ];
 
@@ -99,6 +105,8 @@
 	    "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAwspTqreZr6eLkgLXcI0zhF2HOBuoya0NlUM4dFb1W5kk4OfeZa3sT1yQbRCZHcoVtJrk9JLe2v7xrr8g7+rSJJKXX5VaxgqB3YGDOg8t11XZG4pA65kl4VZ0gEFXE6xYYgODHuLgHF9DMeDGRGCVuBwIDcXxq279k8YE2e2dObkmctYNcQk7LJ+NHAQSmUMIKcRAvnncWq7XPBEQ0xSlW+yp7QJ36C1hLxk7fupVb64qmxsFsuGwE7qBbjDG/7F9gzDAc9gHBLEc7xCEHf1FTf9TjbhevtaTrJ0otATcjQccIP4/BHdpRLbXEkvUljgK6RRzxsRGo+udXLokkE5XWw== tinco@macbook"
     ];
   };
+
+  hardware.pulseaudio.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver = {
