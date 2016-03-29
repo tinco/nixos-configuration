@@ -1,7 +1,7 @@
 {pkgs, ...}:
 
 let mkDockerService = {container, name, env}: {
-  wantedBy = [ "local.target" ];
+  wantedBy = [ "multi-user.target" ];
   requires = [ "docker.service" ];
   after = [ "docker.service" ];
   serviceConfig = {
@@ -25,7 +25,7 @@ in
  systemd.services.httpReverseProxy = mkDockerService { 
    container = "jwilder/nginx-proxy:latest" ;
    name = "http_reverse_proxy" ;
-   env = "-p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro";
+   env = "-p 80:80 -e DEFAULT_HOST=www.tinco.nl -v /var/run/docker.sock:/tmp/docker.sock:ro";
  };
 
  systemd.services.tincoNl = mkDockerService {
@@ -38,5 +38,16 @@ in
    container = "tinco/blog.tinco.nl:latest" ;
    name = "blog.tinco.nl" ;
    env = "-e VIRTUAL_HOST=blog.tinco.nl";
+ };
+
+ systemd.services.cosmicUCom = mkDockerService {
+   container = "tinco/cosmic-u.com:latest" ;
+   name = "cosmic-u.com" ;
+   env = "-e VIRTUAL_HOST=www.cosmic-u.com,cosmic-u.com";
+ };
+
+ services.ejabberd = {
+   enable = true;
+   virtualHosts = "\"tinco.nl\"";
  };
 }
