@@ -45,6 +45,7 @@
     bundler
     which
     autossh
+    irssi
   ];
 
   # List services that you want to enable:

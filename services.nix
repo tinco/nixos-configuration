@@ -5,8 +5,14 @@ let mkDockerService = {container, name, env}: {
   requires = [ "docker.service" ];
   after = [ "docker.service" ];
   serviceConfig = {
-    ExecStart = ''${pkgs.bashInteractive}/bin/bash -c "${pkgs.docker}/bin/docker rm ${name} ; ${pkgs.docker}/bin/docker pull ${container} && ${pkgs.docker}/bin/docker run --rm --name ${name} ${env} ${container}"'';
-    ExecStop = ''${pkgs.docker}/bin/docker stop -t 2 ${name} && ${pkgs.docker}/bin/docker rm ${name}'';
+    AutoRestart = "Always";
+    ExecStart = ''\
+	${pkgs.bashInteractive}/bin/bash -c "${pkgs.docker}/bin/docker rm ${name} ;\
+	${pkgs.docker}/bin/docker pull ${container} && \
+	${pkgs.docker}/bin/docker run --rm --name ${name} ${env} ${container}"'';
+    ExecStop = ''\
+	${pkgs.bashInteractive}/bin/bash -c "${pkgs.docker}/bin/docker stop -t 2 ${name} &&\
+	${pkgs.docker}/bin/docker rm ${name}"'';
   };
 };
 in
@@ -23,7 +29,7 @@ in
  };
 
  systemd.services.httpReverseProxy = mkDockerService { 
-   container = "jwilder/nginx-proxy:latest" ;
+   container = "jwilder/nginx-proxy:0.2.0" ;
    name = "http_reverse_proxy" ;
    env = "-p 80:80 -e DEFAULT_HOST=www.tinco.nl -v /var/run/docker.sock:/tmp/docker.sock:ro";
  };
