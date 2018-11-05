@@ -93,21 +93,11 @@ p5WwQrH8vW2YS7aiRGTDWZ6CKoQ=
   users.extraUsers.tinco = {
     isNormalUser = true;
     uid = 1000;
-    hashedPassword = "***REMOVED***";
+    hashedPassword = "$6$/S4wRJ0gfqBTgviz$vuj0fpzMh4sRfytdKk1yq0lAh.t0ZhKkOnJQCbxlasby0PYgox5qAHW6O1XPbY3hjH0D4.6aZM76seyUE6rcK0:17840";
     extraGroups = [ "wheel" "networkmanager" "docker" ];
     openssh.authorizedKeys.keys = [
 	    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDR/fv06LyJW7LMMbSRnP4O9IeP1a+YwnIn9Ja4vJb198udaeosJQB0L2zRjXnFa+z9exmnB9fXvPRVCosMzVzlv6IK647trQo7Wbmh5H6dJUtRDqyPm50yApfs8HUMmpAUT2OjcSJ5N3gV2qXOyj7ccwk5rViDB3o/wfFv3/WCro1t3cL5/0BmvC1DF+WwFdSAoXTIA0j5uOjlc4pneICe8OPfb3GHViKMZBgwbe1lC9L0jJAsYL6vTGeD6jLJJubspRvIe9iSp/2ug7htFTWiJhP7rhtDo33CUcMJHHT0dYBnElqR3Onv4kvSJiQcbR+8hIrJeFSQMqfhjGfC1kNd tinco@phdevbak-1"
 	    "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAwspTqreZr6eLkgLXcI0zhF2HOBuoya0NlUM4dFb1W5kk4OfeZa3sT1yQbRCZHcoVtJrk9JLe2v7xrr8g7+rSJJKXX5VaxgqB3YGDOg8t11XZG4pA65kl4VZ0gEFXE6xYYgODHuLgHF9DMeDGRGCVuBwIDcXxq279k8YE2e2dObkmctYNcQk7LJ+NHAQSmUMIKcRAvnncWq7XPBEQ0xSlW+yp7QJ36C1hLxk7fupVb64qmxsFsuGwE7qBbjDG/7F9gzDAc9gHBLEc7xCEHf1FTf9TjbhevtaTrJ0otATcjQccIP4/BHdpRLbXEkvUljgK6RRzxsRGo+udXLokkE5XWw== tinco@macbook"
-    ];
-  };
-
-  users.extraUsers.hongli = {
-    isNormalUser = true;
-    uid = 1001;
-    initialHashedPassword = "***REMOVED***";
-    extraGroups = [ "docker" ];
-    openssh.authorizedKeys.keys = [
-	    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC25pwlRmDOdB9D1a1xWZBLqNo7PwIt1vEuM8Y298ZoLeXx0iOOoI6qxcBmeMZJJZ3v9rrtMD7zQ7ijg5JMa19cSx4MnxAGes/QjSso2SfbKPuKPRCvRNU6tNZ5vRKNJZxX3EmxeEjTkhKaF0kK1ja6cDEG9O3ldV28kHqcNXOVjBTzqLTfll2+XnXRUWAu0PBpzwhA1hsgzbofGWsYyclOTHk4Vjwb8u9EaUQPo40im7H/q/zATZi+S1oUxsnuMPdEGKVSNnrWZOQFvYY17EzJOnIwdwfCQjVoXJZzArlF46KVQwXvbcpkHga5KxusbGwZWbrt7ZgFuzgpRf62Ty/r hongli@hongli-lais-macbook-pro.local"
     ];
   };
 
