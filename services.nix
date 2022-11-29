@@ -69,6 +69,17 @@ in
    '';
  };
 
+ systemd.services.tinyWorld = mkDockerService {
+   container = "tinco/tinyworld:latest" ;
+   name = "tiny_world" ;
+   env = ''\
+	-e VIRTUAL_HOST=tinyworld.tinco.nl\
+	-e LETSENCRYPT_HOST=tinyworld.tinco.nl\
+	-e LETSENCRYPT_EMAIL=mail+letsencrypt@tinco.nl\
+	-e SSL_POLICY=Mozilla-Modern\
+   '';
+ };
+
  systemd.services.quorumExplorer = mkDockerService {
    container = "tinco/quorum_explorer:latest" ;
    name = "quorum_explorer" ;
